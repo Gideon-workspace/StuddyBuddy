@@ -39,6 +39,12 @@ jobs:
         working-directory: ./frontend
         run: npm run build
 
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage/*.json
+        continue-on-error: true
+
       # Optional deployment steps
       # - name: Deploy backend
       #   run: echo "Add your backend deployment commands here"
