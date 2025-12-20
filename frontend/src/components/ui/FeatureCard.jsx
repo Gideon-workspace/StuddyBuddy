@@ -21,8 +21,8 @@ const FeatureCard = ({ icon, title, description, color = 'primary' }) => {
 
   return (
     <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 group">
-      <div className={`w-16 h-16 rounded-2xl mb-4 flex items-center justify-center text-2xl ${currentColor.bg} ${currentColor.border} border group-hover:scale-105 transition-transform duration-300`}>
-        <span className={currentColor.text}>{icon}</span>
+      <div className={`w-16 h-16 rounded-2xl mb-4 flex items-center justify-center ${currentColor.bg} ${currentColor.border} border group-hover:scale-105 transition-transform duration-300`}>
+        <div className={currentColor.text}>{icon}</div>
       </div>
       <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-gray-800 transition-colors">
         {title}
