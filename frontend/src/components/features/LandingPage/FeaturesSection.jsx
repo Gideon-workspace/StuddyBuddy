@@ -1,4 +1,4 @@
-import FeatureCard from '../ui/FeatureCard'
+import FeatureCard from '../../ui/FeatureCard'
 
 const FeaturesSection = () => {
   const features = [
@@ -23,21 +23,21 @@ const FeaturesSection = () => {
   ]
 
   return (
-    <section id="features" className="py-24 bg-linear-to-b from-white to-gray-50">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section id="features" className="py-16 bg-linear-to-b from-white to-gray-50">
+      <div className="max-w-6xl mx-auto px-4 lg:px-6">
         {/* Section Header */}
-        <div className="text-center mb-20">
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
             Supercharge Your Studying
           </h2>
-          <p className="text-xl lg:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Unlock the power of Machine Learning to streamline your education. We handle the busy work 
             so you can focus on understanding.
           </p>
         </div>
 
         {/* Features Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
             <FeatureCard
               key={index}
