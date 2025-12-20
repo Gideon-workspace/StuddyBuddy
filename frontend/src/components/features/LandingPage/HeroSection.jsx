@@ -11,13 +11,13 @@ const HeroSection = () => {
   return (
     <section className="min-h-screen bg-linear-to-br from-gray-50 via-white to-gray-100 flex flex-col">
       {/* Navigation Header */}
-      <nav className="w-full max-w-6xl mx-auto px-4 lg:px-6 py-3 flex items-center justify-between">
+      <nav className="w-full max-w-6xl mx-auto px-4 lg:px-6 py-6 lg:py-4 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center space-x-2 cursor-pointer" onClick={() => scrollToSection('hero')}>
-          <div className="w-8 h-8 bg-linear-to-r from-teal-500 to-teal-600 rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-lg">S</span>
+          <div className="w-6 h-6 sm:w-8 sm:h-8 bg-linear-to-r from-teal-500 to-teal-600 rounded-lg flex items-center justify-center">
+            <span className="text-white font-bold text-sm sm:text-lg">S</span>
           </div>
-          <span className="text-xl font-bold text-gray-900">StuddyBuddy</span>
+          <span className="text-lg sm:text-xl font-bold text-gray-900">StuddyBuddy</span>
         </div>
 
         {/* Navigation Menu */}
@@ -37,24 +37,24 @@ const HeroSection = () => {
         </div>
 
         {/* Auth Buttons */}
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2 sm:space-x-3">
           <Button 
             variant="outline" 
             size="small" 
-            className="hidden sm:inline-flex border border-gray-300 text-gray-700 px-3 py-1.5 rounded-md text-md font-medium hover:border-gray-400 hover:bg-gray-50 transition-all duration-200"
+            className="hidden sm:inline-flex border border-gray-300 text-gray-700 px-2 sm:px-3 py-1 sm:py-1.5 rounded-md text-sm sm:text-md font-medium hover:border-gray-400 hover:bg-gray-50 transition-all duration-200"
           >
             Log In
           </Button>
           <Button 
             size="small" 
-            className="bg-linear-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white px-3 py-1.5 rounded-md text-md font-medium shadow-md hover:shadow-lg transition-all duration-200"
+            className="bg-linear-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white px-2 sm:px-3 py-1 sm:py-1.5 rounded-md text-sm sm:text-md font-medium shadow-md hover:shadow-lg transition-all duration-200"
           >
             Sign Up
           </Button>
           
           {/* Mobile Menu Button */}
-          <button className="md:hidden p-2 text-gray-600 hover:text-gray-900">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <button className="md:hidden p-1.5 sm:p-2 text-gray-600 hover:text-gray-900">
+            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
@@ -62,11 +62,11 @@ const HeroSection = () => {
       </nav>
 
       {/* Main Hero Content */}
-      <div id="hero" className="flex-1 flex items-center">
+      <div id="hero" className="flex-1 flex items-center pt-1 lg:pt-10">
         <div className="max-w-6xl mx-auto px-4 lg:px-6 w-full">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
-            <div className="space-y-6 lg:pr-6">
+            <div className="space-y-6 lg:pr-6 text-center lg:text-left">
               <div className="space-y-4">
                 {/* Main Heading */}
                 <div className="space-y-3">
@@ -78,7 +78,7 @@ const HeroSection = () => {
                     ,<br />
                     Not Harder.
                   </h1>
-                  <p className="text-lg lg:text-xl text-gray-600 leading-relaxed max-w-xl">
+                  <p className="text-lg lg:text-xl text-gray-600 leading-relaxed max-w-xl mx-auto lg:mx-0">
                     Your personal AI tutor. Turn your messy notes into interactive study guides, 
                     quizzes, and summaries in seconds.
                   </p>
@@ -86,7 +86,7 @@ const HeroSection = () => {
               </div>
               
               {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 pt-2">
+              <div className="flex flex-col sm:flex-row gap-3 pt-2 justify-center lg:justify-start">
                 <Button 
                   size="medium" 
                   className="bg-linear-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white px-6 py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
@@ -103,7 +103,7 @@ const HeroSection = () => {
               </div>
 
               {/* Trust Indicators */}
-              <div className="flex items-center gap-4 pt-4">
+              <div className="flex items-center gap-4 pt-4 justify-center lg:justify-start">
                 <div className="flex -space-x-2">
                   <div className="w-8 h-8 rounded-full bg-linear-to-r from-pink-400 to-pink-500 border-2 border-white shadow-md"></div>
                   <div className="w-8 h-8 rounded-full bg-linear-to-r from-blue-400 to-blue-500 border-2 border-white shadow-md"></div>
@@ -118,7 +118,7 @@ const HeroSection = () => {
             </div>
 
             {/* Right 3D Illustration Area */}
-            <div className="relative lg:pl-6">
+            <div className="relative lg:pl-6 hidden lg:block">
               <div className="relative aspect-square max-w-md mx-auto">
                 {/* Main Background */}
                 <div className="absolute inset-0 rounded-2xl bg-linear-to-br from-teal-400 via-teal-500 to-teal-600 shadow-xl overflow-hidden">
