@@ -1,38 +1,80 @@
+import { useState, useEffect } from 'react'
 import Button from '../../ui/Button'
 
 const HeroSection = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+    // Close mobile menu after navigation
+    setIsMobileMenuOpen(false)
   };
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen)
+  }
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isMobileMenuOpen])
+
+  // Close menu on escape key
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') {
+        setIsMobileMenuOpen(false)
+      }
+    }
+
+    if (isMobileMenuOpen) {
+      document.addEventListener('keydown', handleEscape)
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape)
+    }
+  }, [isMobileMenuOpen])
+
   return (
-    <section className="min-h-screen bg-linear-to-br from-gray-50 via-white to-gray-100 flex flex-col">
+    <section className="min-h-screen bg-linear-to-br from-gray-50 via-white to-gray-100 flex flex-col relative">
       {/* Navigation Header */}
-      <nav className="w-full max-w-6xl mx-auto px-4 lg:px-6 py-6 lg:py-4 flex items-center justify-between">
+      <nav className="w-full max-w-6xl mx-auto px-4 lg:px-6 py-6 lg:py-4 flex items-center justify-between relative z-50">
         {/* Logo */}
         <div className="flex items-center space-x-2 cursor-pointer" onClick={() => scrollToSection('hero')}>
-          <div className="w-6 h-6 sm:w-8 sm:h-8 bg-linear-to-r from-teal-500 to-teal-600 rounded-lg flex items-center justify-center">
+          <div className="w-6 h-6 sm:w-8 sm:h-8 bg-linear-to-r from-teal-500 to-teal-600 rounded-lg flex items-center justify-center transform transition-transform hover:scale-105">
             <span className="text-white font-bold text-sm sm:text-lg">S</span>
           </div>
           <span className="text-lg sm:text-xl font-bold text-gray-900">StuddyBuddy</span>
         </div>
 
-        {/* Navigation Menu */}
+        {/* Navigation Menu - Desktop */}
         <div className="hidden md:flex items-center space-x-6">
           <button 
             onClick={() => scrollToSection('features')} 
-            className="text-gray-600 hover:text-gray-900 font-medium transition-colors text-md"
+            className="text-gray-600 hover:text-teal-600 font-medium transition-all duration-200 text-md relative group"
           >
             Features
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-teal-600 transition-all duration-300 group-hover:w-full"></span>
           </button>
           <button 
             onClick={() => scrollToSection('about')} 
-            className="text-gray-600 hover:text-gray-900 font-medium transition-colors text-md"
+            className="text-gray-600 hover:text-teal-600 font-medium transition-all duration-200 text-md relative group"
           >
             About
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-teal-600 transition-all duration-300 group-hover:w-full"></span>
           </button>
         </div>
 
@@ -41,23 +83,140 @@ const HeroSection = () => {
           <Button 
             variant="outline" 
             size="small" 
-            className="hidden sm:inline-flex border border-gray-300 text-gray-700 px-2 sm:px-3 py-1 sm:py-1.5 rounded-md text-sm sm:text-md font-medium hover:border-gray-400 hover:bg-gray-50 transition-all duration-200"
+            className="hidden sm:inline-flex border border-gray-300 text-gray-700 px-2 sm:px-3 py-1 sm:py-1.5 rounded-md text-sm sm:text-md font-medium hover:border-teal-400 hover:bg-teal-50 hover:text-teal-700 transition-all duration-200"
           >
             Log In
           </Button>
           <Button 
             size="small" 
-            className="bg-linear-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white px-2 sm:px-3 py-1 sm:py-1.5 rounded-md text-sm sm:text-md font-medium shadow-md hover:shadow-lg transition-all duration-200"
+            className="hidden sm:inline-flex bg-linear-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white px-2 sm:px-3 py-1 sm:py-1.5 rounded-md text-sm sm:text-md font-medium shadow-md hover:shadow-lg transition-all duration-200"
           >
             Sign Up
           </Button>
           
           {/* Mobile Menu Button */}
-          <button className="md:hidden p-1.5 sm:p-2 text-gray-600 hover:text-gray-900">
-            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+          <button 
+            onClick={toggleMobileMenu}
+            className="md:hidden p-2 sm:p-3 text-gray-600 hover:text-teal-600 transition-all duration-200 hover:bg-teal-50 rounded-lg relative z-50"
+            aria-label="Toggle mobile menu"
+            aria-expanded={isMobileMenuOpen}
+          >
+            <div className="w-6 h-6 sm:w-7 sm:h-7 flex flex-col justify-center items-center space-y-1">
+              {/* Animated hamburger lines */}
+              <span className={`block w-full h-0.5 bg-current transform transition-all duration-300 ${
+                isMobileMenuOpen ? 'rotate-45 translate-y-1.5' : 'rotate-0'
+              }`} />
+              <span className={`block w-full h-0.5 bg-current transition-all duration-300 ${
+                isMobileMenuOpen ? 'opacity-0' : 'opacity-100'
+              }`} />
+              <span className={`block w-full h-0.5 bg-current transform transition-all duration-300 ${
+                isMobileMenuOpen ? '-rotate-45 -translate-y-1.5' : 'rotate-0'
+              }`} />
+            </div>
           </button>
+        </div>
+
+        {/* Mobile Menu Overlay */}
+        <div className={`fixed inset-0 z-40 md:hidden transition-all duration-300 ${
+          isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+        }`}>
+          {/* Backdrop with blur effect */}
+          <div 
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+          
+          {/* Mobile Menu Panel */}
+          <div className={`absolute top-0 right-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl transform transition-all duration-300 ease-out ${
+            isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}>
+            
+            {/* Menu Header */}
+            <div className="flex items-center p-6 border-b border-gray-100">
+              <div className="flex items-center space-x-2">
+                <div className="w-8 h-8 bg-linear-to-r from-teal-500 to-teal-600 rounded-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">S</span>
+                </div>
+                <span className="text-xl font-bold text-gray-900">StuddyBuddy</span>
+              </div>
+            </div>
+
+            {/* Menu Content */}
+            <div className="px-6 py-8">
+              <div className="space-y-6">
+                {/* Navigation Links */}
+                <div className="space-y-2">
+                  <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">Navigation</p>
+                  
+                  <button 
+                    onClick={() => scrollToSection('features')} 
+                    className="flex items-center w-full text-left text-gray-700 hover:text-teal-600 hover:bg-teal-50 font-medium py-3 px-4 rounded-xl transition-all duration-200 group"
+                  >
+                    <span className="mr-3 text-teal-500 opacity-70 group-hover:opacity-100">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </span>
+                    Features
+                    <span className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </span>
+                  </button>
+                  
+                  <button 
+                    onClick={() => scrollToSection('about')} 
+                    className="flex items-center w-full text-left text-gray-700 hover:text-teal-600 hover:bg-teal-50 font-medium py-3 px-4 rounded-xl transition-all duration-200 group"
+                  >
+                    <span className="mr-3 text-teal-500 opacity-70 group-hover:opacity-100">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </span>
+                    About
+                    <span className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+                
+                {/* Divider */}
+                <div className="border-t border-gray-100"></div>
+                
+                {/* Auth Buttons */}
+                <div className="space-y-3">
+                  <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">Get Started</p>
+                  
+                  <Button 
+                    variant="outline" 
+                    size="medium" 
+                    className="w-full justify-center border-2 border-gray-200 text-gray-700 px-6 py-3 rounded-xl font-semibold hover:border-teal-300 hover:bg-teal-50 hover:text-teal-700 transition-all duration-200"
+                  >
+                    Log In
+                  </Button>
+                  
+                  <Button 
+                    size="medium" 
+                    className="w-full justify-center bg-linear-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+                  >
+                    Sign Up
+                  </Button>
+                </div>
+
+                {/* Footer info */}
+                <div className="pt-6 text-center">
+                  <div className="flex justify-center mt-3 space-x-1">
+                    <div className="w-2 h-2 rounded-full bg-teal-400"></div>
+                    <div className="w-2 h-2 rounded-full bg-orange-400"></div>
+                    <div className="w-2 h-2 rounded-full bg-purple-400"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </nav>
 

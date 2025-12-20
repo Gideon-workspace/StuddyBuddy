@@ -11,7 +11,7 @@ const FeaturesSection = () => {
     {
       icon: '❓',
       title: 'Interactive Q&A',
-      description: 'Stuck on a concept? Ask StudyBuddy anything about your materials. Get instant, accurate answers available 24/7 to supplement your learning.',
+      description: 'Stuck on a concept? Ask StuddyBuddy anything about your materials. Get instant, accurate answers available 24/7 to supplement your learning.',
       color: 'secondary'
     },
     {
