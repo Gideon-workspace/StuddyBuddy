@@ -8,10 +8,7 @@ const HeroSection = () => {
           {/* Left Content */}
           <div className="space-y-8 lg:pr-8">
             <div className="space-y-6">
-              {/* Badge */}
-              <div className="inline-flex items-center px-4 py-2 bg-white rounded-full shadow-md border border-gray-200 hover:shadow-lg transition-shadow">
-                <span className="text-sm font-medium text-gray-700">🚀 POWERED BY AI</span>
-              </div>
+              
               
               {/* Main Heading */}
               <div className="space-y-4">
@@ -95,11 +92,8 @@ const HeroSection = () => {
                 </div>
 
                 {/* Study Guide Card */}
-                <div className="absolute bottom-8 right-8 bg-white rounded-2xl p-5 shadow-2xl max-w-52 transform rotate-3 hover:rotate-0 transition-transform duration-300 hover:shadow-3xl">
+                <div className="absolute bottom-8 right-8 bg-white rounded-2xl p-5 shadow-2xl max-w-5xl transform rotate-3 hover:rotate-0 transition-transform duration-300 hover:shadow-3xl">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-8 h-8 rounded-full bg-linear-to-r from-yellow-400 to-orange-400 flex items-center justify-center shadow-md">
-                      <span className="text-sm">📖</span>
-                    </div>
                     <div className="text-sm font-bold text-gray-800">AI Study Guide</div>
                   </div>
                   <div className="space-y-3">
@@ -107,10 +101,7 @@ const HeroSection = () => {
                     <div className="h-2.5 bg-gray-200 rounded-full w-4/5"></div>
                     <div className="h-2.5 bg-gray-200 rounded-full w-3/5"></div>
                   </div>
-                  <div className="flex justify-between items-center mt-4">
-                    <div className="text-xs text-gray-500">Progress</div>
-                    <div className="text-sm font-bold text-teal-600">90% Complete</div>
-                  </div>
+
                 </div>
               </div>
             </div>
