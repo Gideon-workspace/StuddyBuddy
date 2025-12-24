@@ -199,6 +199,7 @@ const HeroSection = () => {
                   <Button 
                     variant="outline" 
                     size="medium" 
+                    onClick={()=> navigate("/signin")}
                     className="w-full justify-center border-2 border-gray-200 text-gray-700 px-6 py-3 rounded-xl font-semibold hover:border-teal-300 hover:bg-teal-50 hover:text-teal-700 transition-all duration-200"
                   >
                     Log In
@@ -206,6 +207,7 @@ const HeroSection = () => {
                   
                   <Button 
                     size="medium" 
+                    onClick={()=> navigate("/signup")}
                     className="w-full justify-center bg-linear-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
                   >
                     Sign Up
