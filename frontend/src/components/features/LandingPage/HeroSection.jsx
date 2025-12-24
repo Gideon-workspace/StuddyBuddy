@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react'
 import Button from '../../ui/Button'
+import { useNavigate } from 'react-router-dom'
+
+
 
 const HeroSection = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const navigate = useNavigate()
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -83,12 +87,14 @@ const HeroSection = () => {
           <Button 
             variant="outline" 
             size="small" 
+            onClick={()=> navigate("/signin")}
             className="hidden sm:inline-flex border border-gray-300 text-gray-700 px-2 sm:px-3 py-1 sm:py-1.5 rounded-md text-sm sm:text-md font-medium hover:border-teal-400 hover:bg-teal-50 hover:text-teal-700 transition-all duration-200"
           >
             Log In
           </Button>
           <Button 
             size="small" 
+            onClick={()=> navigate("/signup")}
             className="hidden sm:inline-flex bg-linear-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white px-2 sm:px-3 py-1 sm:py-1.5 rounded-md text-sm sm:text-md font-medium shadow-md hover:shadow-lg transition-all duration-200"
           >
             Sign Up

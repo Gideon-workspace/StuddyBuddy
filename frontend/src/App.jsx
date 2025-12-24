@@ -1,9 +1,15 @@
 import './styles/App.css'
+
+import { BrowserRouter } from "react-router-dom";
+import AppRoutes from "./routes/AppRoutes";
+
 import LandingPage from './pages/LandingPage'
 
 function App() {
   return (
-    <LandingPage />
+     <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
   )
 }
 
