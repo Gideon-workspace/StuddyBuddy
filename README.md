@@ -4,7 +4,7 @@
 [![Build Status](https://img.shields.io/github/actions/workflow/status/YOUR_USERNAME/StuddyBuddy/ci-cd.yml?branch=main)](https://github.com/YOUR_USERNAME/StuddyBuddy/actions)
 [![Codecov](https://img.shields.io/codecov/c/github/YOUR_USERNAME/StuddyBuddy?branch=main)](https://codecov.io/gh/YOUR_USERNAME/StuddyBuddy)
 
-**StuddyBuddy** is a full-stack web application that helps students track study activities, collaborate with peers, and receive personalized academic support using data-driven insights. The platform combines a friendly social environment with smart analytics to optimize learning outcomes.
+**StuddyBuddy** is a full-stack web application that helps students track study activities, collaborate with peers, and receive personalized academic support using data-driven insights and LLMs. The platform combines a friendly social environment with smart analytics to optimize learning outcomes.
 
 ---
 
