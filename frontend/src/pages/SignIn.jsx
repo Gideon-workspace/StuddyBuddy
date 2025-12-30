@@ -1,20 +1,73 @@
 import { useState } from "react"; // Added this
 import { motion } from "framer-motion";
+import { Snackbar, Alert, CircularProgress } from '@mui/material';
 import lock from "../assets/password.png";
-import email from "../assets/email.png";
+import emailIcon from "../assets/email.png";
 import eye from "../assets/eye.png";
 import { useNavigate } from 'react-router-dom'
+import { auth } from "../services/firebase/firebase.js"
+import {signInWithEmailAndPassword} from "firebase/auth"; 
+
+
 
 
 const SignIn = () => {
+
+    // State for the Snackbar
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [severity, setSeverity] = useState("success");
+
+
+  const [email,setEmail] = useState("");
+  const [password,setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate()
+  const [loading, setLoading] = useState(false);
+
+  const showSnackbar = (msg, type) => {
+    setMessage(msg);
+    setSeverity(type);
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') return;
+    setOpen(false);
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try{
+        const userCredentials = await signInWithEmailAndPassword(auth,email,password);
+        if(userCredentials.user.emailVerified){
+
+        showSnackbar("Welcome back! Login successful.", "success");
+        setTimeout(() => navigate("/dashboard"), 1000);
+        setLoading(false);
+
+        }else{
+          showSnackbar("Please verify your email before logging in.", "warning");
+          setLoading(false);
+        }
+        
+
+    }catch(err){
+      // Friendly error parsing I will want to test this with how does it actually look like
+     //const friendlyMsg = err.code?.split('/')[1]?.replace(/-/g, ' ') || err.message;
+      showSnackbar(err.message, "error");
+      setLoading(false);
+    } 
+  }
+
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      transition={{ duration: 1.0, ease: "easeOut" }}
       className="min-h-screen bg-[#F8F9FA] flex flex-col items-center justify-center p-4 md:p-8 font-sans"
     >
       {/* Header / Logo */}
@@ -72,18 +125,20 @@ const SignIn = () => {
             <h2 className="text-3xl font-bold text-gray-900 mb-2">Welcome back!</h2>
             <p className="text-gray-500 mb-10 text-sm">Please enter your details to sign in.</p>
 
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleLogin}>
               <div>
                 <label className="block text-sm font-bold text-gray-900 mb-2">Email Address</label>
                 <div className="relative">
                  <img 
-                    src={email}
+                    src={emailIcon}
                     alt="lock" 
                     className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 object-contain"
                   />
                   <input
                     type="email"
+                    value={email}
                     placeholder="student@university.edu"
+                    onChange={(e)=> setEmail(e.target.value)}
                     className="w-full pl-12 pr-4 py-4 bg-gray-50 rounded-2xl focus:ring-2 focus:ring-teal-500 outline-none border border-gray-300 transition text-gray-700"
                   />
                 </div>
@@ -99,6 +154,8 @@ const SignIn = () => {
                   />
                   <input
                     type={showPassword ? "text" : "password"}
+                    value={password}
+                     onChange={(e)=> setPassword(e.target.value)}
                     placeholder="••••••••"
                     className="w-full pl-12 pr-12 py-4 bg-gray-50 rounded-2xl focus:ring-2 focus:ring-teal-500 outline-none border border-gray-300 transition text-gray-700"
                   />
@@ -119,24 +176,48 @@ const SignIn = () => {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between">
-                <label className="flex items-center space-x-2 cursor-pointer">
-                  <input type="checkbox" className="w-4 h-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500" />
-                  <span className="text-xs text-gray-600">Remember me</span>
-                </label>
-                <a href="#" className="text-xs font-bold text-gray-900 hover:underline">Forgot Password?</a>
+              <div className="flex justify-end">
+                <button
+                  type="button"
+                  onClick={() => navigate("/forgotpassword")}
+                  className="text-xs font-bold text-gray-900 hover:underline"
+                >
+                  Forgot Password?
+                </button>
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-teal-500 hover:bg-teal-700 text-black font-bold py-4 rounded-2xl transition shadow-lg shadow-teal-100 mt-4"
+                disabled={loading}
+                className={`w-full bg-teal-500 hover:bg-teal-700 text-black font-bold py-4 rounded-2xl transition shadow-lg shadow-teal-100 mt-4 ${
+                  loading
+                  ? "bg-teal-300 cursor-not-allowed text-gray-500"
+                  : "bg-teal-500 hover:bg-teal-700 text-white shadow-teal-100"
+                }`}
               >
-                Sign In
+                {loading?(
+                  <CircularProgress size={24} color="inherit" />
+                  )
+                :(
+                  "Sign In"
+                )}
+              
               </button>
             </form>
           </div>
         </div>
       </div>
+      {/* Snackbar for feedback messages */}
+      <Snackbar 
+        open={open} 
+        autoHideDuration={5000} 
+        onClose={handleClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert onClose={handleClose} severity={severity} variant="filled" sx={{ width: '100%' }}>
+          {message}
+        </Alert>
+      </Snackbar>
 
       <footer className="mt-8 text-gray-400 text-[10px]">
         © 2024 StuddyBuddy AI. All rights reserved.
