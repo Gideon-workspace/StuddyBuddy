@@ -92,8 +92,8 @@ const SignUp = () => {
        const scoreArray = examScore.split(',').map(Number) 
        const averageScore = scoreArray.reduce((a,b) => a + b, 0) / scoreArray.length;
 
-       //chnage this once I hosted the model
-       const Modelresponse = await fetch("http://127.0.0.1:8000/predict",{
+       
+       const Modelresponse = await fetch("https://studdybuddy-ml-services.onrender.com/predict",{
         method:"POST",
         headers:{
           "Content-Type":"application/json"
