@@ -127,7 +127,7 @@ const SignUp = () => {
       
       showSnackbar("Sign up successful! Please check your email(also spam) to verify your account.","success");
        
-      console.log("User account and database profile created successfully!");
+      console.log("User account created successfully!");
      
       await signOut(auth)
       setTimeout(() => {
@@ -136,7 +136,7 @@ const SignUp = () => {
       }, 1500);
     
     }catch(err){
-      console.error("Error during sign up:", err);
+      console.error("Error during Sign up:", err);
       showSnackbar(err.message, "warning");
       setLoading(false);
     }
