@@ -12,7 +12,7 @@ const LeaderboardAvatar = ({ initials }) => {
 
   return (
     <div
-      className={`w-8 h-8 ${getAvatarColor(initials)} rounded-full flex items-center justify-center text-white text-xs font-semibold`}
+      className={`w-8 h-8 ${getAvatarColor(initials)} rounded-full flex items-center justify-center text-white text-xs font-semibold shrink-0`}
     >
       {initials}
     </div>
@@ -20,7 +20,9 @@ const LeaderboardAvatar = ({ initials }) => {
 }
 
 const TrophyIcon = ({ className = "" }) => (
-  <span className={className}><i class="fi fi-ss-trophy"></i></span>
+  <span className={className}>
+    <i className="fi fi-ss-trophy"></i>
+  </span>
 )
 
 const LeaderboardRow = ({ student }) => {
@@ -43,11 +45,11 @@ const LeaderboardRow = ({ student }) => {
 
   return (
     <div
-      className={`flex items-center gap-4 px-4 py-3 rounded-4xl ${
+      className={`flex items-center gap-3 md:gap-4 px-3 md:px-4 py-2 md:py-3 rounded-4xl ${
         isFirst ? "bg-amber-100" : "hover:bg-gray-50"
       } transition-colors`}
     >
-      {/* Rank - Trophy for 1st, number for others */}
+      {/* Rank */}
       <span className={`w-6 font-bold ${getRankColor()}`}>
         {isFirst ? <TrophyIcon className="text-amber-500" /> : student.rank}
       </span>
@@ -56,33 +58,41 @@ const LeaderboardRow = ({ student }) => {
       <LeaderboardAvatar initials={student.avatar} />
 
       {/* Name */}
-      <span className={`flex-1 font-medium ${isFirst ? "text-gray-900" : "text-gray-700"}`}>{student.name}</span>
+      <span
+        className={`flex-1 font-medium text-sm md:text-base truncate ${isFirst ? "text-gray-900" : "text-gray-700"}`}
+      >
+        {student.name}
+      </span>
 
       {/* Points */}
-      <span className={`font-semibold ${getPointsColor()}`}>{student.points.toLocaleString()}</span>
+      <span className={`font-semibold text-sm md:text-base ${getPointsColor()}`}>
+        {student.points.toLocaleString()}
+      </span>
     </div>
   )
 }
 
 const Leaderboard = () => {
   return (
-    <section className="bg-white rounded-2xl p-6 shadow-sm ">
+    <section className="bg-white rounded-2xl p-4 md:p-6 shadow-sm">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center">
+          <div className="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center shrink-0">
             <TrophyIcon className="text-amber-600" />
           </div>
           <div>
-            <h2 className="text-lg font-semibold text-gray-900">Leaderboard</h2>
-            <p className="text-sm text-gray-500">Top 15 Scholars this week</p>
+            <h2 className="text-base md:text-lg font-semibold text-gray-900">Leaderboard</h2>
+            <p className="text-xs md:text-sm text-gray-500">Top 15 Scholars this week</p>
           </div>
         </div>
-        <button className="text-sm text-gray-500 hover:text-gray-700 transition-colors">View All</button>
+        <button className="text-sm text-gray-500 hover:text-gray-700 transition-colors whitespace-nowrap">
+          View All
+        </button>
       </div>
 
       {/* Table Header */}
-      <div className="flex items-center gap-4 px-4 py-2 text-xs text-gray-400 uppercase tracking-wider border-b border-gray-100">
+      <div className="flex items-center gap-3 md:gap-4 px-3 md:px-4 py-2 text-xs text-gray-400 uppercase tracking-wider border-b border-gray-100">
         <span className="w-6">#</span>
         <span className="flex-1 ml-6">Student</span>
         <span>Points</span>
